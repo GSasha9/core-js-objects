@@ -267,8 +267,25 @@ function fromJSON(proto, json) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  const result = arr.sort((a, b) => {
+    if (a.country > b.country) {
+      return 1;
+    }
+    if (a.country < b.country) {
+      return -1;
+    }
+    if (a.country === b.country) {
+      if (a.city > b.city) {
+        return 1;
+      }
+      if (a.city < b.city) {
+        return -1;
+      }
+    }
+    return 0;
+  });
+  return result;
 }
 
 /**
@@ -301,8 +318,21 @@ function sortCitiesArray(/* arr */) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const result = new Map();
+
+  array.forEach((el) => {
+    const key = keySelector(el);
+    const value = valueSelector(el);
+
+    if (!result.has(key)) {
+      result.set(key, [value]);
+    } else {
+      result.get(key).push(value);
+    }
+  });
+
+  return result;
 }
 
 /**
@@ -360,32 +390,50 @@ function group(/* array, keySelector, valueSelector */) {
  */
 
 const cssSelectorBuilder = {
-  element(/* value */) {
-    throw new Error('Not implemented');
+  constructor() {
+    this.selector = {
+      element: null,
+      id: null,
+      classes: [],
+      attributes: [],
+      pseudoClasses: [],
+      pseudoElement: null,
+    };
+    this.order = []
+  }
+
+  element(value) {
+    this.selector.element = value;
+    return this.selector.element;
   },
 
-  id(/* value */) {
-    throw new Error('Not implemented');
+  id(value) {
+    this.selector.id = `#${value}`;
+    return this.selector.id;
   },
 
-  class(/* value */) {
-    throw new Error('Not implemented');
+  class(value) {
+    this.selector.class = `.${value}`;
+    return this.selector.class;
   },
 
-  attr(/* value */) {
-    throw new Error('Not implemented');
+  attr(value) {
+    this.selector.attr = `[${value}]`;
+    return this.selector.attr;
   },
 
-  pseudoClass(/* value */) {
-    throw new Error('Not implemented');
+  pseudoClass(value) {
+    this.selector.pseudoClass = `:${value}`;
+    return this.selector.pseudoClass;
   },
 
-  pseudoElement(/* value */) {
-    throw new Error('Not implemented');
+  pseudoElement(value) {
+    this.selector.pseudoElement = `::${value}`;
+    return this.selector.pseudoElement;
   },
 
-  combine(/* selector1, combinator, selector2 */) {
-    throw new Error('Not implemented');
+  combine(selector1, combinator, selector2) {
+
   },
 };
 

@@ -389,7 +389,7 @@ function group(array, keySelector, valueSelector) {
  *  For more examples see unit tests.
  */
 
-const cssSelectorBuilder = {
+/* const cssSelectorBuilder = {
   constructor() {
     this.selector = {
       element: null,
@@ -435,7 +435,7 @@ const cssSelectorBuilder = {
   combine(selector1, combinator, selector2) {
 
   },
-};
+}; */
 
 module.exports = {
   shallowCopy,
@@ -451,5 +451,5 @@ module.exports = {
   fromJSON,
   group,
   sortCitiesArray,
-  cssSelectorBuilder,
+  // cssSelectorBuilder,
 };
